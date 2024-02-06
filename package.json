@@ -2,13 +2,13 @@
   "name": "nodetodoapp",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/App.js",
+  "main": "index.js",
   "type": "module",
   "engines": {
     "node": "18"
   },
   "scripts": {
-    "start": "nodemon ./src/App.js",
+    "start": "nodemon index.js",
     "test": "jest"
   },
   "keywords": [],

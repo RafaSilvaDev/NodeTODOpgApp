@@ -1,34 +1,34 @@
 import { operation } from "../db/connection.js";
 
 class ToDoRepository {
-  findAll() {
+  async findAll() {
     const sql = "SELECT * FROM todo";
-    return operation(sql);
+    return await operation(sql);
   }
 
-  findById(id) {
-    const sql = "SELECT * FROM todo WHERE todo.id = ?";
-    return operation(sql, id);
+  async findById(id) {
+    const sql = "SELECT * FROM todo WHERE todo.id = $1";
+    return await operation(sql, [id]);
   }
 
-  create(todo) {
-    const sql = "INSERT INTO todo SET ?";
-    return operation(sql, todo);
+  async create(todo) {
+    const sql = "INSERT INTO todo (owner, description, status) VALUES ($1, $2, $3)";
+    return await operation(sql, [todo.owner, todo.description, todo.status]);
   }
 
-  update(todo, todoId) {
-    const sql = "UPDATE todo SET ? WHERE id = ?";
-    return operation(sql, [todo, todoId]);
+  async update(todo, todoId) {
+    const sql = "UPDATE todo SET owner=$1, description=$2, status=$3 WHERE id = $4";
+    return await operation(sql, [todo.owner, todo.description, todo.status, todoId]);
   }
 
-  updateStatus(status, todoId) {
-    const sql = "UPDATE todo SET todo.status = ? WHERE id = ?";
-    return operation(sql, [status, todoId]);
+  async updateStatus(status, todoId) {
+    const sql = "UPDATE todo SET status = $1 WHERE id = $2";
+    return await operation(sql, [status, todoId]);
   }
 
-  delete(todoId) {
-    const sql = "DELETE FROM todo WHERE id = ?";
-    return operation(sql, todoId);
+  async delete(todoId) {
+    const sql = "DELETE FROM todo WHERE id = $1";
+    return await operation(sql, [todoId]);
   }
 }
 

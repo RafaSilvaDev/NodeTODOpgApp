@@ -6,7 +6,7 @@ class ToDoController {
     try {
       const result = await ToDoRepository.findAll();
       if (result.length) res.status(200).json(result);
-      else res.status(404).json({ message: Constants.TODO_NOT_FOUND() });
+      else res.status(404).json({ message: Constants.NO_TODOS_FOUND() });
     } catch (e) {
       res
         .status(400)
